@@ -1,139 +1,224 @@
-import * as React from "react"
-import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
+// @/components/ui/alert-dialog.tsx - The Knoux Legacy UI AlertDialog Components
+// Exclusively designed for Knoux BookSmith Ultra™ / Kitāb al-Mubīn™.
+// Purpose: To handle critical user confirmations, AI actions feedback, saving/exporting prompts,
+// and system notifications with the elegance and clarity befitting Knoux's premium user experience.
+// Each dialog is styled to blend seamlessly with the app's glassmorphism theme and brand color palette.
 
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import * as React from "react";
+import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
+import { ChevronDown, AlertTriangle, X } from "lucide-react"; // Adding relevant icons if needed, but mainly focusing on button/background context for this dialog.
 
-const AlertDialog = AlertDialogPrimitive.Root
+// Importing utility classes and Knoux button variants for a cohesive look and feel.
+import { cn } from "@/lib/utils";
+// Ensuring we use the specifically branded button variants from Knoux.
+import { buttonVariants } from "@/components/ui/button";
 
-const AlertDialogTrigger = AlertDialogPrimitive.Trigger
+// --- Knoux-branded AlertDialog Components ---
 
-const AlertDialogPortal = AlertDialogPrimitive.Portal
+/**
+ * @KnouxAlertDialogRoot
+ * The root component that manages the alert dialog state.
+ */
+const KnouxAlertDialog = AlertDialogPrimitive.Root;
+KnouxAlertDialog.displayName = "KnouxAlertDialogRoot"; // Explicitly branding the root component.
 
-const AlertDialogOverlay = React.forwardRef<
+/**
+ * @KnouxAlertDialogTrigger
+ * A button or element that opens the dialog. Custom styling will be applied when used in context.
+ */
+const KnouxAlertDialogTrigger = AlertDialogPrimitive.Trigger;
+// If specific trigger styling is needed beyond the button itself, it would be applied here or to the element passed as `asChild`.
+// For example, `className="KnouxButtonStyling"`
+
+/**
+ * @KnouxAlertDialogPortal
+ * Essential for managing z-index and overlay positioning, ensuring dialogs appear above other content.
+ * Inherits global portal management from Radix.
+ */
+const KnouxAlertDialogPortal = AlertDialogPrimitive.Portal;
+
+/**
+ * @KnouxAlertDialogOverlay
+ * The background overlay that dims the main UI when a dialog is active.
+ * This is a prime element for our glassmorphism effect.
+ */
+const KnouxAlertDialogOverlay = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Overlay
+    ref={ref}
+    // Styling: Full screen overlay with a subtle dark blur, creating a premium depth effect.
+    // Smooth fade animations are inherent from Radix's data states.
     className={cn(
-      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      // Applying brand background color and sophisticated blur effect.
+      "fixed inset-0 z-50 bg-navy-900/80 backdrop-blur-xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
-    ref={ref}
   />
-))
-AlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName
+));
+KnouxAlertDialogOverlay.displayName = "KnouxAlertDialogOverlay"; // Branded display name.
 
-const AlertDialogContent = React.forwardRef<
+/**
+ * @KnouxAlertDialogContent
+ * The main dialog window. Contains the header, body, and footer.
+ * Designed with subtle glassmorphism, internal padding, and smooth, refined animations.
+ */
+const KnouxAlertDialogContent = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>
 >(({ className, ...props }, ref) => (
-  <AlertDialogPortal>
-    <AlertDialogOverlay />
+  <AlertDialogPrimitive.Portal>
+    <KnouxAlertDialogOverlay /> {/* Utilizes our custom styled overlay */}
     <AlertDialogPrimitive.Content
       ref={ref}
+      // Styling: Centered, card-like dialog with generous padding and premium blur.
+      // Utilizes all the specified animations for entrance and exit for a smooth, professional feel.
       className={cn(
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg",
-        className
+        // Base positioning and size. Max width for readability.
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border",
+        // Core Knoux Glassmorphism styling: Semi-transparent background, blur, rounded corners.
+        "bg-navy-800/70 backdrop-blur-xl rounded-xl border border-navy-800/50",
+        // Padding and shadow for the modal body.
+        "p-6 shadow-2xl shadow-navy-900/70",
+        // Animations for state changes: fade, zoom, slide - all with smooth timing.
+        "duration-300 data-[state=open]:animate-in data-[state=closed]:animate-out",
+        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+        "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+        "data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]",
+        "data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
+        className // Allow for any additional specific styling.
       )}
       {...props}
     />
-  </AlertDialogPortal>
-))
-AlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName
+  </AlertDialogPrimitive.Portal>
+));
+KnouxAlertDialogContent.displayName = "KnouxAlertDialogContent"; // Branded display name.
 
-const AlertDialogHeader = ({
+/**
+ * @KnouxAlertDialogHeader
+ * Container for the dialog's title and description. Styled for clear visual hierarchy.
+ */
+const KnouxAlertDialogHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
+    // Styling: Centers content within the header area, maintains spacing between title/description.
     className={cn(
-      "flex flex-col space-y-2 text-center sm:text-left",
+      "flex flex-col space-y-3 text-center sm:text-left px-1 py-2", // Adjusted padding, more vertical space.
       className
     )}
     {...props}
   />
-)
-AlertDialogHeader.displayName = "AlertDialogHeader"
+);
+KnouxAlertDialogHeader.displayName = "KnouxAlertDialogHeader"; // Branded display name.
 
-const AlertDialogFooter = ({
+/**
+ * @KnouxAlertDialogFooter
+ * Container for action buttons (Save, Cancel, etc.). Provides layout for button alignment.
+ */
+const KnouxAlertDialogFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
+    // Styling: Footer layout for buttons, with space between them for clarity and easy clicking.
     className={cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-3", // Adjusted spacing for buttons.
       className
     )}
     {...props}
   />
-)
-AlertDialogFooter.displayName = "AlertDialogFooter"
+);
+KnouxAlertDialogFooter.displayName = "KnouxAlertDialogFooter"; // Branded display name.
 
-const AlertDialogTitle = React.forwardRef<
+/**
+ * @KnouxAlertDialogTitle
+ * The title of the dialog. Prominently displayed, using the premium serif font for authority.
+ */
+const KnouxAlertDialogTitle = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Title>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Title
     ref={ref}
-    className={cn("text-lg font-semibold", className)}
+    // Styling: Emphasizing the title with Knoux's serif font, primary gold color for importance, and suitable size.
+    className={cn("text-2xl font-serif font-semibold text-gold-400", className)}
     {...props}
   />
-))
-AlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName
+));
+KnouxAlertDialogTitle.displayName = "KnouxAlertDialogTitle"; // Branded display name.
 
-const AlertDialogDescription = React.forwardRef<
+/**
+ * @KnouxAlertDialogDescription
+ * The body text of the dialog. Subtle, clear, and using brand secondary colors.
+ */
+const KnouxAlertDialogDescription = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    // Styling: Clear, readable text in Knoux's secondary color, slightly smaller than title for hierarchy.
+    className={cn("text-lg font-sans text-slate-gray", className)}
     {...props}
   />
-))
-AlertDialogDescription.displayName =
-  AlertDialogPrimitive.Description.displayName
+));
+AlertDialogDescription.displayName = "KnouxAlertDialogDescription"; // Branded display name.
 
-const AlertDialogAction = React.forwardRef<
+/**
+ * @KnouxAlertDialogAction
+ * The primary action button (e.g., "Save", "Confirm"). Uses the main brand button style.
+ */
+const KnouxAlertDialogAction = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Action>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Action>
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Action
     ref={ref}
-    className={cn(buttonVariants(), className)}
+    // Using the primary gold button variant as the default for important actions.
+    className={cn(buttonVariants({ variant: "default", size: "lg" }), "font-semibold", className)}
     {...props}
   />
-))
-AlertDialogAction.displayName = AlertDialogPrimitive.Action.displayName
+));
+AlertDialogAction.displayName = "KnouxAlertDialogAction"; // Branded display name.
 
-const AlertDialogCancel = React.forwardRef<
+/**
+ * @KnouxAlertDialogCancel
+ * The secondary action button (e.g., "Cancel"). Uses an outline style to differentiate from primary actions.
+ */
+const KnouxAlertDialogCancel = React.forwardRef<
   React.ElementRef<typeof AlertDialogPrimitive.Cancel>,
   React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Cancel>
 >(({ className, ...props }, ref) => (
   <AlertDialogPrimitive.Cancel
     ref={ref}
+    // Using the outline button variant for cancellation actions.
+    // Applying some margin-top to prevent overlap issues on smaller screens.
     className={cn(
-      buttonVariants({ variant: "outline" }),
-      "mt-2 sm:mt-0",
+      buttonVariants({ variant: "outline", size: "lg" }),
+      "mt-2 sm:mt-0 font-medium text-slate-gray", // Setting the text color to slate-gray for contrast.
       className
     )}
     {...props}
   />
-))
-AlertDialogCancel.displayName = AlertDialogPrimitive.Cancel.displayName
+));
+AlertDialogCancel.displayName = "KnouxAlertDialogCancel"; // Branded display name.
 
+// --- Final Exporting Knoux Branded Components ---
+// Exporting all components with their original names, but ensuring that these *are* the Knoux branded implementations.
 export {
-  AlertDialog,
-  AlertDialogPortal,
-  AlertDialogOverlay,
-  AlertDialogTrigger,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogFooter,
-  AlertDialogTitle,
-  AlertDialogDescription,
-  AlertDialogAction,
-  AlertDialogCancel,
-}
+  KnouxAlertDialog as AlertDialog,
+  KnouxAlertDialogPortal as AlertDialogPortal,
+  KnouxAlertDialogOverlay as AlertDialogOverlay,
+  KnouxAlertDialogTrigger as AlertDialogTrigger,
+  KnouxAlertDialogContent as AlertDialogContent,
+  KnouxAlertDialogHeader as AlertDialogHeader,
+  KnouxAlertDialogFooter as AlertDialogFooter,
+  KnouxAlertDialogTitle as AlertDialogTitle,
+  KnouxAlertDialogDescription as AlertDialogDescription,
+  KnouxAlertDialogAction as AlertDialogAction,
+  KnouxAlertDialogCancel as AlertDialogCancel,
+};
