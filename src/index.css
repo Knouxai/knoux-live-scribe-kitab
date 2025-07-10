@@ -1,58 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100;200;300;400;500;600;700;800;900&family=Noto+Serif+Arabic:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* KNOUX Kitāb al-Mubīn™ Design System
+   Islamic Heritage meets Modern Innovation
+   All colors MUST be HSL.
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Islamic Heritage Color Palette */
+    --background: 35 25% 97%;
+    --foreground: 155 25% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* KNOUX Brand Colors */
+    --primary: 155 60% 25%;           /* Deep Islamic Green */
+    --primary-foreground: 45 85% 92%; /* Warm Cream */
+    --primary-glow: 155 45% 35%;      /* Lighter Green for glows */
+    
+    --secondary: 45 75% 85%;          /* Golden Cream */
+    --secondary-foreground: 155 40% 20%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Islamic Gold Accent */
+    --accent: 45 85% 65%;             /* Islamic Gold */
+    --accent-foreground: 155 50% 15%;
+    --accent-glow: 45 90% 75%;        /* Brighter Gold for effects */
+    
+    /* Heritage Brown */
+    --muted: 35 20% 88%;
+    --muted-foreground: 35 15% 45%;
+    
+    /* Sacred Elements */
+    --sacred: 155 40% 30%;            /* Deep Mosque Green */
+    --sacred-foreground: 45 80% 90%;
+    
+    /* Wisdom Colors */
+    --wisdom: 220 25% 35%;            /* Deep Blue for knowledge */
+    --wisdom-foreground: 45 70% 95%;
+    
+    /* Support Colors */
+    --card: 35 35% 98%;
+    --card-foreground: 155 25% 20%;
+    
+    --border: 35 25% 85%;
+    --input: 35 30% 92%;
+    --ring: 155 60% 35%;
+    
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 98%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Islamic Design Elements */
+    --radius: 0.75rem;
+    
+    /* Premium Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
+    --gradient-golden: linear-gradient(135deg, hsl(var(--accent)) 0%, hsl(var(--accent-glow)) 100%);
+    --gradient-sacred: linear-gradient(135deg, hsl(var(--sacred)) 0%, hsl(var(--primary)) 100%);
+    --gradient-wisdom: linear-gradient(135deg, hsl(var(--wisdom)) 0%, hsl(var(--primary)) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+    
+    /* Islamic Shadows & Glows */
+    --shadow-sacred: 0 8px 32px -4px hsl(var(--primary) / 0.15);
+    --shadow-golden: 0 8px 24px -4px hsl(var(--accent) / 0.2);
+    --shadow-wisdom: 0 4px 16px -2px hsl(var(--wisdom) / 0.1);
+    --glow-sacred: 0 0 20px hsl(var(--primary-glow) / 0.3);
+    --glow-golden: 0 0 16px hsl(var(--accent-glow) / 0.4);
+    
+    /* Live Broadcasting Colors */
+    --live-primary: 155 70% 45%;      /* Vibrant green for live elements */
+    --live-secondary: 45 90% 70%;     /* Bright gold for highlights */
+    --live-pulse: 155 60% 50%;        /* Pulsing indicator color */
+    
+    /* Smooth Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-sacred: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .dark {
@@ -100,6 +123,164 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-arabic;
+    font-feature-settings: "kern" 1, "liga" 1;
   }
+  
+  /* Arabic Typography */
+  .font-arabic {
+    font-family: 'Noto Sans Arabic', 'Noto Serif Arabic', system-ui, sans-serif;
+  }
+  
+  .font-arabic-serif {
+    font-family: 'Noto Serif Arabic', 'Noto Sans Arabic', serif;
+  }
+}
+
+@layer components {
+  /* Live Broadcasting Components */
+  .live-indicator {
+    @apply relative;
+  }
+  
+  .live-indicator::before {
+    content: '';
+    @apply absolute -inset-1 rounded-full;
+    background: linear-gradient(45deg, hsl(var(--live-primary)), hsl(var(--live-secondary)));
+    animation: live-pulse 2s ease-in-out infinite;
+  }
+  
+  .live-broadcast-border {
+    @apply relative overflow-hidden rounded-lg;
+  }
+  
+  .live-broadcast-border::before {
+    content: '';
+    @apply absolute inset-0 p-[2px] rounded-lg;
+    background: var(--gradient-golden);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    animation: live-shimmer 3s ease-in-out infinite;
+  }
+  
+  /* Sacred Design Elements */
+  .sacred-gradient {
+    background: var(--gradient-sacred);
+  }
+  
+  .golden-gradient {
+    background: var(--gradient-golden);
+  }
+  
+  .wisdom-gradient {
+    background: var(--gradient-wisdom);
+  }
+  
+  /* Islamic Decorative Elements */
+  .islamic-pattern {
+    background-image: 
+      radial-gradient(circle at 25% 25%, hsl(var(--accent-glow) / 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, hsl(var(--primary-glow) / 0.1) 0%, transparent 50%);
+  }
+  
+  /* Sacred Shadows */
+  .shadow-sacred {
+    box-shadow: var(--shadow-sacred);
+  }
+  
+  .shadow-golden {
+    box-shadow: var(--shadow-golden);
+  }
+  
+  .shadow-wisdom {
+    box-shadow: var(--shadow-wisdom);
+  }
+  
+  /* Glow Effects */
+  .glow-sacred {
+    box-shadow: var(--glow-sacred);
+  }
+  
+  .glow-golden {
+    box-shadow: var(--glow-golden);
+  }
+  
+  /* Smooth Transitions */
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  .transition-sacred {
+    transition: var(--transition-sacred);
+  }
+}
+
+@layer utilities {
+  /* Typography Utilities */
+  .text-gradient-golden {
+    background: var(--gradient-golden);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-sacred {
+    background: var(--gradient-sacred);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Live Broadcast Utilities */
+  .animate-live-pulse {
+    animation: live-pulse 2s ease-in-out infinite;
+  }
+  
+  .animate-live-shimmer {
+    animation: live-shimmer 3s ease-in-out infinite;
+  }
+  
+  .animate-sacred-float {
+    animation: sacred-float 6s ease-in-out infinite;
+  }
+}
+
+/* Custom Animations */
+@keyframes live-pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes live-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes sacred-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .ltr-content {
+  direction: ltr;
+  text-align: left;
 }
