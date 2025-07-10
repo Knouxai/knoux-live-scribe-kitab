@@ -8,11 +8,9 @@ import {
   Heart, 
   Sparkles, 
   Crown, 
-  Brain,
-  Palette,
   Globe,
-  Zap,
-  Star
+  Palette,
+  Brain
 } from 'lucide-react';
 
 interface Template {
@@ -24,6 +22,7 @@ interface Template {
   gradient: string;
   isNew?: boolean;
   isPremium?: boolean;
+  prompts: string[];
 }
 
 interface TemplateSelectorProps {
@@ -39,7 +38,12 @@ const templates: Template[] = [
     icon: BookOpen,
     category: 'إبداعي',
     gradient: 'from-purple-500 to-pink-500',
-    isNew: true
+    isNew: true,
+    prompts: [
+      'اكتب بداية ملحمية مشوقة',
+      'طور الشخصيات الرئيسية',
+      'أنشئ صراعاً درامياً'
+    ]
   },
   {
     id: 'scholar-forge',
@@ -47,7 +51,12 @@ const templates: Template[] = [
     description: 'للبحوث والكتب الأكاديمية',
     icon: GraduationCap,
     category: 'أكاديمي',
-    gradient: 'from-blue-500 to-cyan-500'
+    gradient: 'from-blue-500 to-cyan-500',
+    prompts: [
+      'ابدأ بمقدمة أكاديمية قوية',
+      'اكتب مراجعة الأدبيات',
+      'حلل البيانات والنتائج'
+    ]
   },
   {
     id: 'sacred-script',
@@ -56,7 +65,12 @@ const templates: Template[] = [
     icon: Heart,
     category: 'ديني',
     gradient: 'from-green-500 to-emerald-500',
-    isPremium: true
+    isPremium: true,
+    prompts: [
+      'اكتب مقدمة روحانية',
+      'استشهد بالآيات والأحاديث',
+      'اربط بين النصوص والحياة العملية'
+    ]
   },
   {
     id: 'wonder-land',
@@ -64,7 +78,12 @@ const templates: Template[] = [
     description: 'لقصص وكتب الأطفال',
     icon: Sparkles,
     category: 'أطفال',
-    gradient: 'from-orange-500 to-red-500'
+    gradient: 'from-orange-500 to-red-500',
+    prompts: [
+      'ابدأ بـ "كان يا ما كان"',
+      'أنشئ شخصيات محببة للأطفال',
+      'اكتب نهاية سعيدة ومفيدة'
+    ]
   },
   {
     id: 'legacy-forge',
@@ -72,7 +91,12 @@ const templates: Template[] = [
     description: 'للسير الذاتية والمذكرات',
     icon: Crown,
     category: 'شخصي',
-    gradient: 'from-indigo-500 to-purple-500'
+    gradient: 'from-indigo-500 to-purple-500',
+    prompts: [
+      'اكتب عن ذكريات الطفولة',
+      'صف التحديات والانجازات',
+      'شارك الحكم والدروس المستفادة'
+    ]
   },
   {
     id: 'world-builder',
@@ -81,11 +105,20 @@ const templates: Template[] = [
     icon: Globe,
     category: 'خيال علمي',
     gradient: 'from-teal-500 to-blue-500',
-    isNew: true
+    isNew: true,
+    prompts: [
+      'صمم عالماً جديداً',
+      'أنشئ نظاماً سياسياً واجتماعياً',
+      'طور التقنيات والثقافات'
+    ]
   }
 ];
 
-export const TemplateSelector = ({ onSelectTemplate, selectedTemplate }: TemplateSelectorProps) => {
+export const TemplateSelector = ({ onSelectTemplate }: TemplateSelectorProps) => {
+  const handleTemplateSelect = (template: Template) => {
+    onSelectTemplate(template);
+  };
+
   return (
     <div className="container mx-auto px-6 py-12">
       <div className="text-center mb-12">
@@ -104,7 +137,6 @@ export const TemplateSelector = ({ onSelectTemplate, selectedTemplate }: Templat
             <Card 
               key={template.id}
               className="bg-gray-800/50 border-gray-700 p-8 hover:bg-gray-800/70 transition-all duration-300 cursor-pointer group hover:scale-105 backdrop-blur-sm"
-              onClick={() => onSelectTemplate(template)}
             >
               <div className="flex items-start justify-between mb-6">
                 <div className={`w-16 h-16 bg-gradient-to-r ${template.gradient} rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
@@ -132,6 +164,18 @@ export const TemplateSelector = ({ onSelectTemplate, selectedTemplate }: Templat
               <p className="text-gray-400 font-arabic mb-4 leading-relaxed text-sm">
                 {template.description}
               </p>
+
+              <div className="mb-4">
+                <p className="text-xs text-gray-500 mb-2">ميزات هذا القالب:</p>
+                <ul className="text-xs text-gray-400 space-y-1">
+                  {template.prompts.slice(0, 2).map((prompt, index) => (
+                    <li key={index} className="flex items-center gap-2">
+                      <div className="w-1 h-1 bg-gray-500 rounded-full" />
+                      {prompt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
               
               <div className="flex items-center justify-between">
                 <Badge variant="outline" className="text-gray-400 border-gray-600 text-xs">
@@ -141,6 +185,7 @@ export const TemplateSelector = ({ onSelectTemplate, selectedTemplate }: Templat
                 <Button 
                   size="sm" 
                   className={`bg-gradient-to-r ${template.gradient} hover:opacity-90 text-white border-0 group-hover:scale-105 transition-all`}
+                  onClick={() => handleTemplateSelect(template)}
                 >
                   اختيار
                 </Button>
