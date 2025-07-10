@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { KnouxHeader } from '@/components/KnouxHeader';
 import { TemplateSelector } from '@/components/TemplateSelector';
@@ -7,7 +8,6 @@ import { StatusBar } from '@/components/StatusBar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   BookOpen, 
   Sparkles, 
@@ -15,11 +15,12 @@ import {
   PlayCircle,
   Users,
   Globe,
-  Star
+  Star,
+  ArrowRight,
+  Zap,
+  Brain,
+  Shield
 } from 'lucide-react';
-import heroImage from '@/assets/knoux-hero-banner.jpg';
-import libraryImage from '@/assets/islamic-library-3d.jpg';
-import broadcastImage from '@/assets/live-broadcast-bg.jpg';
 
 const Index = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
@@ -55,112 +56,93 @@ const Index = () => {
 
   if (showWelcome) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-background">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <KnouxHeader />
         
-        {/* Hero Section */}
+        {/* Hero Section with Modern Dark Design */}
         <div className="relative overflow-hidden">
-          <div 
-            className="absolute inset-0 opacity-10 bg-cover bg-center"
-            style={{ backgroundImage: `url(${heroImage})` }}
-          />
-          <div className="islamic-pattern absolute inset-0" />
-          <div className="relative container mx-auto px-6 py-16">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-green-500/10" />
+          <div className="relative container mx-auto px-6 py-20">
             <div className="text-center max-w-4xl mx-auto">
               <div className="flex justify-center mb-6">
-                <Badge className="sacred-gradient text-white px-4 py-2 text-sm gap-2">
+                <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-2 text-sm gap-2 border-0">
                   <Crown className="w-4 h-4" />
-                  الإصدار المميز
+                  الإصدار المتقدم
                 </Badge>
               </div>
               
-              <h1 className="text-5xl md:text-7xl font-bold font-arabic mb-6">
-                <span className="text-gradient-sacred">KNOUX</span><br />
-                <span className="text-gradient-golden">Kitāb al-Mubīn</span>
+              <h1 className="text-6xl md:text-8xl font-bold font-arabic mb-8">
+                <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-green-400 bg-clip-text text-transparent">
+                  KNOUX
+                </span>
+                <br />
+                <span className="text-white text-4xl md:text-5xl">
+                  Kitāb al-Mubīn
+                </span>
               </h1>
               
-              <p className="text-xl md:text-2xl text-muted-foreground font-arabic mb-8 leading-relaxed">
-                حيث الكلمة تُبَثّ على الهواء مباشرةً، والكتاب ينبض بالحياة، والمعرفة تجد موطنها
+              <p className="text-xl md:text-2xl text-gray-300 font-arabic mb-12 leading-relaxed max-w-3xl mx-auto">
+                منصة الذكاء الاصطناعي المتقدمة للتأليف والإبداع
               </p>
               
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
                 <Button 
                   size="lg" 
-                  className="sacred-gradient text-white px-8 py-4 text-lg gap-3 shadow-sacred"
+                  className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white px-8 py-4 text-lg gap-3 border-0 shadow-2xl"
                   onClick={() => setShowWelcome(false)}
                 >
                   <PlayCircle className="w-6 h-6" />
-                  ابدأ التأليف الآن
-                </Button>
-                
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="px-8 py-4 text-lg gap-3 border-2"
-                >
-                  <BookOpen className="w-6 h-6" />
-                  استكشف القوالب
+                  ابدأ الآن
+                  <ArrowRight className="w-5 h-5" />
                 </Button>
               </div>
 
-              {/* Features Grid */}
+              {/* Modern Feature Cards Grid */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                <Card className="p-6 shadow-wisdom transition-all hover:shadow-sacred">
-                  <div className="w-12 h-12 sacred-gradient rounded-lg flex items-center justify-center mb-4 mx-auto">
-                    <Sparkles className="w-6 h-6 text-white" />
+                <Card className="bg-gray-800/50 border-gray-700 p-8 backdrop-blur-sm hover:bg-gray-800/70 transition-all duration-300 group">
+                  <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform">
+                    <Brain className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="font-bold font-arabic text-lg mb-2">ذكاء اصطناعي محلي</h3>
-                  <p className="text-muted-foreground font-arabic text-sm">
-                    نماذج ذكية تعمل على جهازك مباشرة للحفاظ على خصوصية المحتوى
+                  <h3 className="font-bold font-arabic text-xl mb-4 text-white">ذكاء اصطناعي محلي</h3>
+                  <p className="text-gray-400 font-arabic text-sm leading-relaxed">
+                    تقنيات متقدمة تعمل على جهازك مباشرة مع حماية كاملة للخصوصية
                   </p>
                 </Card>
                 
-                <Card className="p-6 shadow-wisdom transition-all hover:shadow-golden relative overflow-hidden">
-                  <div 
-                    className="absolute inset-0 opacity-5 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${libraryImage})` }}
-                  />
-                  <div className="relative">
-                    <div className="w-12 h-12 golden-gradient rounded-lg flex items-center justify-center mb-4 mx-auto">
-                      <Users className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="font-bold font-arabic text-lg mb-2">مكتبة تراثية ثلاثية الأبعاد</h3>
-                    <p className="text-muted-foreground font-arabic text-sm">
-                      استكشف كنوز المعرفة الإسلامية في بيئة ثلاثية الأبعاد تفاعلية
-                    </p>
+                <Card className="bg-gray-800/50 border-gray-700 p-8 backdrop-blur-sm hover:bg-gray-800/70 transition-all duration-300 group">
+                  <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform">
+                    <Globe className="w-7 h-7 text-white" />
                   </div>
+                  <h3 className="font-bold font-arabic text-xl mb-4 text-white">مكتبة تراثية تفاعلية</h3>
+                  <p className="text-gray-400 font-arabic text-sm leading-relaxed">
+                    استكشف المعرفة الإسلامية في بيئة ثلاثية الأبعاد متطورة
+                  </p>
                 </Card>
                 
-                <Card className="p-6 shadow-wisdom transition-all hover:shadow-sacred relative overflow-hidden">
-                  <div 
-                    className="absolute inset-0 opacity-5 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${broadcastImage})` }}
-                  />
-                  <div className="relative">
-                    <div className="w-12 h-12 wisdom-gradient rounded-lg flex items-center justify-center mb-4 mx-auto">
-                      <Globe className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="font-bold font-arabic text-lg mb-2">بث حي للكتابة</h3>
-                    <p className="text-muted-foreground font-arabic text-sm">
-                      شاهد كتابك يتشكل أمام عينيك لحظة بلحظة مع معاينة مباشرة
-                    </p>
+                <Card className="bg-gray-800/50 border-gray-700 p-8 backdrop-blur-sm hover:bg-gray-800/70 transition-all duration-300 group">
+                  <div className="w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6 mx-auto group-hover:scale-110 transition-transform">
+                    <Zap className="w-7 h-7 text-white" />
                   </div>
+                  <h3 className="font-bold font-arabic text-xl mb-4 text-white">بث حي متقدم</h3>
+                  <p className="text-gray-400 font-arabic text-sm leading-relaxed">
+                    شاهد أفكارك تتحول إلى كتاب منسق أمام عينيك مباشرة
+                  </p>
                 </Card>
               </div>
 
-              {/* Stats */}
-              <div className="flex justify-center gap-8 text-center">
-                <div>
-                  <div className="text-2xl font-bold text-primary">٧+</div>
-                  <div className="text-sm text-muted-foreground font-arabic">أقسام متخصصة</div>
+              {/* Statistics with Modern Design */}
+              <div className="flex justify-center gap-12 text-center">
+                <div className="bg-gray-800/30 rounded-2xl p-6 backdrop-blur-sm border border-gray-700">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">٧+</div>
+                  <div className="text-sm text-gray-400 font-arabic mt-2">أقسام متخصصة</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-accent">٧٠+</div>
-                  <div className="text-sm text-muted-foreground font-arabic">قالب جاهز</div>
+                <div className="bg-gray-800/30 rounded-2xl p-6 backdrop-blur-sm border border-gray-700">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">٧٠+</div>
+                  <div className="text-sm text-gray-400 font-arabic mt-2">قالب احترافي</div>
                 </div>
-                <div>
-                  <div className="text-2xl font-bold text-sacred">١٠٠٪</div>
-                  <div className="text-sm text-muted-foreground font-arabic">محلي وآمن</div>
+                <div className="bg-gray-800/30 rounded-2xl p-6 backdrop-blur-sm border border-gray-700">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">١٠٠٪</div>
+                  <div className="text-sm text-gray-400 font-arabic mt-2">محلي وآمن</div>
                 </div>
               </div>
             </div>
@@ -172,7 +154,7 @@ const Index = () => {
 
   if (!selectedTemplate) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <KnouxHeader />
         <TemplateSelector 
           onSelectTemplate={setSelectedTemplate}
@@ -183,7 +165,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-gray-900 flex flex-col">
       <KnouxHeader 
         projectName={selectedTemplate.name}
         isLive={isLive}
@@ -192,7 +174,7 @@ const Index = () => {
       
       <div className="flex-1 flex">
         {/* Editor Panel */}
-        <div className="w-1/2 border-r border-border">
+        <div className="w-1/2 border-r border-gray-700">
           <LiveEditor
             content={content}
             onContentChange={setContent}

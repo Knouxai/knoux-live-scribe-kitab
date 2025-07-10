@@ -1,22 +1,13 @@
-import { useEffect, useState } from 'react';
+
 import { Badge } from '@/components/ui/badge';
-import { 
-  Clock, 
-  FileText, 
-  Target, 
-  Zap, 
-  Heart, 
-  Sparkles,
-  Activity,
-  TrendingUp 
-} from 'lucide-react';
+import { Clock, FileText, Eye, Zap, Brain } from 'lucide-react';
 
 interface StatusBarProps {
   wordCount: number;
   characterCount: number;
   estimatedReadingTime: number;
   isLive: boolean;
-  currentTask?: string;
+  currentTask: string;
 }
 
 export const StatusBar = ({ 
@@ -26,107 +17,44 @@ export const StatusBar = ({
   isLive, 
   currentTask 
 }: StatusBarProps) => {
-  const [islamicReminder, setIslamicReminder] = useState('');
-  
-  const islamicReminders = [
-    'سبحان الله وبحمده',
-    'الحمد لله رب العالمين', 
-    'لا إله إلا الله',
-    'الله أكبر',
-    'استغفر الله العظيم',
-    'سبحان الله العظيم',
-    'لا حول ولا قوة إلا بالله'
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * islamicReminders.length);
-      setIslamicReminder(islamicReminders[randomIndex]);
-    }, 30000); // كل 30 ثانية
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatArabicNumber = (num: number) => {
-    const arabicNumerals = '٠١٢٣٤٥٦٧٨٩';
-    return num.toString().replace(/\d/g, (digit) => arabicNumerals[parseInt(digit)]);
-  };
-
   return (
-    <div className="h-12 border-t border-border bg-background/80 backdrop-blur-sm">
-      <div className="h-full flex items-center justify-between px-6">
-        {/* Left Side - Statistics */}
-        <div className="flex items-center gap-6 text-sm">
-          <div className="flex items-center gap-2">
-            <FileText className="w-4 h-4 text-primary" />
-            <span className="font-arabic">
-              {formatArabicNumber(wordCount)} كلمة
-            </span>
+    <div className="bg-gray-900/95 backdrop-blur-sm border-t border-gray-700 px-6 py-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 text-gray-400 text-sm">
+            <FileText className="w-4 h-4" />
+            <span>{wordCount} كلمة</span>
           </div>
           
-          <div className="flex items-center gap-2">
-            <Target className="w-4 h-4 text-muted-foreground" />
-            <span className="font-arabic">
-              {formatArabicNumber(characterCount)} حرف
-            </span>
+          <div className="flex items-center gap-2 text-gray-400 text-sm">
+            <Eye className="w-4 h-4" />
+            <span>{characterCount} حرف</span>
           </div>
           
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-muted-foreground" />
-            <span className="font-arabic">
-              {formatArabicNumber(estimatedReadingTime)} دقيقة قراءة
-            </span>
+          <div className="flex items-center gap-2 text-gray-400 text-sm">
+            <Clock className="w-4 h-4" />
+            <span>{estimatedReadingTime} دقيقة قراءة</span>
           </div>
-          
-          {isLive && (
-            <div className="flex items-center gap-2">
-              <Activity className="w-4 h-4 text-live-primary animate-pulse" />
-              <span className="text-live-primary font-arabic">
-                معدل: {formatArabicNumber(12)} كلمة/دقيقة
-              </span>
-            </div>
-          )}
         </div>
 
-        {/* Center - Current Task */}
-        <div className="flex items-center gap-3">
-          {currentTask && isLive && (
-            <div className="flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full">
-              <Zap className="w-3 h-3 text-primary animate-pulse" />
-              <span className="text-xs font-medium text-primary font-arabic">
-                {currentTask}
-              </span>
-            </div>
-          )}
-          
-          {islamicReminder && (
-            <div className="flex items-center gap-2 px-3 py-1 bg-sacred/10 rounded-full">
-              <Heart className="w-3 h-3 text-sacred" />
-              <span className="text-xs text-sacred font-arabic">
-                {islamicReminder}
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Right Side - AI Status */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full" />
-            <span className="text-xs text-muted-foreground font-arabic">AI محلي متصل</span>
-          </div>
-          
-          {isLive && (
-            <Badge variant="outline" className="gap-1">
-              <Sparkles className="w-3 h-3" />
-              <span className="font-arabic">ذكاء فائق</span>
-            </Badge>
+          {isLive && currentTask && (
+            <div className="flex items-center gap-2">
+              <Brain className="w-4 h-4 text-green-400 animate-pulse" />
+              <span className="text-green-400 text-sm font-arabic">{currentTask}</span>
+            </div>
           )}
           
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <TrendingUp className="w-3 h-3" />
-            <span className="font-arabic">٩٨٪ كفاءة</span>
-          </div>
+          <Badge 
+            className={`gap-2 border-0 ${
+              isLive 
+                ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' 
+                : 'bg-gray-700 text-gray-300'
+            }`}
+          >
+            <Zap className="w-3 h-3" />
+            {isLive ? 'متصل' : 'غير متصل'}
+          </Badge>
         </div>
       </div>
     </div>
